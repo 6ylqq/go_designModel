@@ -28,6 +28,17 @@ func GetInstanceLock() *singleton {
 	return instance
 }
 
+func GetInstanceLock2() *singleton {
+	if instance == nil {
+		mu.Lock()
+		defer mu.Unlock()
+		if instance == nil {
+			instance = &singleton{}
+		}
+	}
+	return instance
+}
+
 var once sync.Once
 
 // GetInstanceBest 使用go的Once包来实现
